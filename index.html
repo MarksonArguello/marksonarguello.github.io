@@ -1,20 +1,38 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html>
 	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Intersect Rectangles</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Trabalhos Comp. Gráfica</title>
 	</head>
+
 	<body>
-		<h2>Trabalhos de computação gráfica</h2>
-		<ol>
-			<li>
-				<a href="/Trab01/RotatingSquare.html">Rotating Square</a>
-			</li>
-			<li>
-				<a href="/Trab02/PolygonIntersection.html">Polygon Intersection</a>
-			</li>
-		</ol>
+		<canvas id="theCanvas" width="500" height="500">
+			Please upgrade your browser.
+		</canvas>
+
+		<!-- gl-matrix.js is not esm compatible -->
+		<script src="..\utils\gl-matrix.js"></script>
+		<script src="..\utils\SAT.js"></script>
+		<script type="text/javascript">
+			// deconstruct glMatrix object.
+			const { mat2, mat3, mat4, vec2, vec3, vec4 } = glMatrix;
+		</script>
+
+		<script type="module" src="PolygonIntersection.js"></script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+		<script>
+			const queryString = window.location.search;
+			const urlParams = new URLSearchParams(queryString);
+			const x = urlParams.get('w') || '500';
+			const y = urlParams.get('h') || '500';
+
+			let canvas = document.getElementById('theCanvas');
+			canvas.width = x;
+			canvas.height = y;
+		</script>
 	</body>
 </html>
