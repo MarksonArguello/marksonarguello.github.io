@@ -177,6 +177,7 @@ function pointInConvexPoly(p, poly) {
 	let prevOrient = 0;
 	for (let q of poly) {
 		const o = vec2d.orient(prevPoint, q, p);
+		if (o == 0) continue;
 		if (Math.abs(o - prevOrient) > 1) return false;
 		prevOrient = o;
 		prevPoint = q;
