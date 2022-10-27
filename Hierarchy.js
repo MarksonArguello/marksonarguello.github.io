@@ -250,6 +250,7 @@ var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
  var leftThighAngle = 0.0;
  var leftShinAngle = 0.0;
  var leftFootAngle = 0.0;
+ var rightThighAngle = 0.0;
  
  var torsoMatrixLocal = new Matrix4().setScale(10, 10, 5);
  var shoulderMatrixLocal = new Matrix4().setScale(3, 5, 2);
@@ -405,6 +406,55 @@ var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
        headAngle -= 15;
        headMatrix.setTranslate(0, 7, 0).rotate(headAngle, 0, 1, 0);
        break;
+      case "p":
+        leftThighAngle += 15;
+        var currentLeftThighRot = new Matrix4()
+          .setTranslate(0, 2, 0)
+          .rotate(-leftThighAngle, 1, 0, 0)
+          .translate(0, -2, 0);
+        leftThighMatrix.setTranslate(3, -5, 0).multiply(currentLeftThighRot);
+        break;
+      case "P":
+        leftThighAngle -= 15;
+        var currentLeftThighRot = new Matrix4()
+          .setTranslate(0, 2, 0)
+          .rotate(-leftThighAngle, 1, 0, 0)
+          .translate(0, -2, 0);
+        leftThighMatrix.setTranslate(3, -5, 0).multiply(currentLeftThighRot);
+        break;
+      case "i":
+        leftShinAngle += 15;
+        var currentLeftShinRot = new Matrix4()
+          .setTranslate(0, 2, 0)
+          .rotate(-leftShinAngle, 1, 0, 0)
+          .translate(0, -2, 0);
+        leftShinMatrix.setTranslate(0, -5, 0).multiply(currentLeftShinRot);
+        break;
+      case "I":
+        leftShinAngle -= 15;
+        var currentLeftShinRot = new Matrix4()
+          .setTranslate(0, 2, 0)
+          .rotate(-leftShinAngle, 1, 0, 0)
+          .translate(0, -2, 0);
+        leftShinMatrix.setTranslate(0, -5, 0).multiply(currentLeftShinRot);
+        break;
+      case "u":
+        leftFootAngle += 15;
+        var currentLeftFootRot = new Matrix4()
+          .setTranslate(-1.5, 1, -3)
+          .rotate(-leftFootAngle, 1, 0, 0)
+          .translate(1.5, -1, 3);
+        leftFootMatrix.setTranslate(0, -4, 2).multiply(currentLeftFootRot); 
+        break;
+      case "U":
+        leftFootAngle -= 15;
+        var currentLeftFootRot = new Matrix4()
+          .setTranslate(-1.5, 1, -3)
+          .rotate(-leftFootAngle, 1, 0, 0)
+          .translate(1.5, -1, 3);
+        leftFootMatrix.setTranslate(0, -4, 2).multiply(currentLeftFootRot);
+        break;
+      
      default:
        return;
    }
