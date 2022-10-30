@@ -238,6 +238,12 @@
 var leftShinMatrix = new Matrix4().setTranslate(0, -6, 0);
 /** @type {Matrix4} */
 var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
+/** @type {Matrix4} */
+var rightThighMatrix = new Matrix4().setTranslate(-2, -9, 0);
+/** @type {Matrix4} */
+var rightShinMatrix = new Matrix4().setTranslate(0, -6, 0);
+/** @type {Matrix4} */
+var rightFootMatrix = new Matrix4().setTranslate(0, -4, 2);
  
  var torsoAngle = 0.0;
  var shoulderAngle = 0.0;
@@ -251,6 +257,8 @@ var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
  var leftShinAngle = 0.0;
  var leftFootAngle = 0.0;
  var rightThighAngle = 0.0;
+ var rightShinAngle = 0.0;
+ var rightFootAngle = 0.0;
  
  var torsoMatrixLocal = new Matrix4().setScale(10, 10, 5);
  var shoulderMatrixLocal = new Matrix4().setScale(3, 5, 2);
@@ -263,6 +271,10 @@ var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
  var leftThighMatrixLocal = new Matrix4().setScale(3, 7, 2);
  var leftShinMatrixLocal = new Matrix4().setScale(3, 7, 2);
  var leftFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
+var rightThighMatrixLocal = new Matrix4().setScale(3, 7, 2);
+var rightShinMatrixLocal = new Matrix4().setScale(3, 7, 2);
+var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
+
  
  /**
   * View matrix.
@@ -409,34 +421,34 @@ var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
       case "p":
         leftThighAngle += 15;
         var currentLeftThighRot = new Matrix4()
-          .setTranslate(0, 2, 0)
+          .setTranslate(-1, 4.5, 0)
           .rotate(-leftThighAngle, 1, 0, 0)
-          .translate(0, -2, 0);
-        leftThighMatrix.setTranslate(3, -5, 0).multiply(currentLeftThighRot);
+          .translate(1, -4.5,0);
+        leftThighMatrix.setTranslate(2, -9, 0).multiply(currentLeftThighRot);
         break;
       case "P":
         leftThighAngle -= 15;
         var currentLeftThighRot = new Matrix4()
-          .setTranslate(0, 2, 0)
+          .setTranslate(-1, 4.5, 0)
           .rotate(-leftThighAngle, 1, 0, 0)
-          .translate(0, -2, 0);
-        leftThighMatrix.setTranslate(3, -5, 0).multiply(currentLeftThighRot);
+          .translate(1, -4.5,0);
+        leftThighMatrix.setTranslate(2, -9, 0).multiply(currentLeftThighRot);
         break;
       case "i":
         leftShinAngle += 15;
         var currentLeftShinRot = new Matrix4()
-          .setTranslate(0, 2, 0)
+          .translate(1.5, 3.5, 1)
           .rotate(-leftShinAngle, 1, 0, 0)
-          .translate(0, -2, 0);
-        leftShinMatrix.setTranslate(0, -5, 0).multiply(currentLeftShinRot);
+          .translate(-1.5, -3.5, -1);
+        leftShinMatrix.setTranslate(0, -6, 0).multiply(currentLeftShinRot);
         break;
       case "I":
         leftShinAngle -= 15;
         var currentLeftShinRot = new Matrix4()
-          .setTranslate(0, 2, 0)
+          .translate(1.5, 3.5, 1)
           .rotate(-leftShinAngle, 1, 0, 0)
-          .translate(0, -2, 0);
-        leftShinMatrix.setTranslate(0, -5, 0).multiply(currentLeftShinRot);
+          .translate(-1.5, -3.5, -1);
+        leftShinMatrix.setTranslate(0, -6, 0).multiply(currentLeftShinRot);
         break;
       case "u":
         leftFootAngle += 15;
@@ -587,6 +599,23 @@ var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
   s.pop();
   s.pop();
   s.pop();
+
+  // right thigh relative to torso
+  s.push(new Matrix4(s.top()).multiply(rightThighMatrix));
+  renderCube(s, rightThighMatrixLocal);
+
+  // right shin relative to thigh
+  s.push(new Matrix4(s.top()).multiply(rightShinMatrix));
+  renderCube(s, rightShinMatrixLocal);
+
+  // right foot relative to shin
+  s.push(new Matrix4(s.top()).multiply(rightFootMatrix));
+  renderCube(s, rightFootMatrixLocal);
+
+  s.pop();
+  s.pop();
+  s.pop();
+
   
   s.pop();
  
