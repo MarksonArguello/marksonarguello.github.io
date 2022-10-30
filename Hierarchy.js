@@ -466,7 +466,54 @@ var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
           .translate(1.5, -1, 3);
         leftFootMatrix.setTranslate(0, -4, 2).multiply(currentLeftFootRot);
         break;
-      
+      case 'b':
+        rightThighAngle += 15;
+        var currentRightThighRot = new Matrix4()
+          .setTranslate(-1, 4.5, 0)
+          .rotate(-rightThighAngle, 1, 0, 0)
+          .translate(1, -4.5,0);
+        rightThighMatrix.setTranslate(-2, -9, 0).multiply(currentRightThighRot);
+        break;
+      case 'B':
+        rightThighAngle -= 15;
+        var currentRightThighRot = new Matrix4()
+          .setTranslate(-1, 4.5, 0)
+          .rotate(-rightThighAngle, 1, 0, 0)
+          .translate(1, -4.5,0);
+        rightThighMatrix.setTranslate(-2, -9, 0).multiply(currentRightThighRot);
+        break;
+      case 'n':
+        rightShinAngle += 15;
+        var currentRightShinRot = new Matrix4()
+          .translate(1.5, 3.5, 1)
+          .rotate(-rightShinAngle, 1, 0, 0) 
+          .translate(-1.5, -3.5, -1);
+        rightShinMatrix.setTranslate(0, -6, 0).multiply(currentRightShinRot);
+        break;
+      case 'N':
+        rightShinAngle -= 15;
+        var currentRightShinRot = new Matrix4()
+          .translate(1.5, 3.5, 1)
+          .rotate(-rightShinAngle, 1, 0, 0)
+          .translate(-1.5, -3.5, -1);
+        rightShinMatrix.setTranslate(0, -6, 0).multiply(currentRightShinRot);
+        break;
+      case 'm':
+        rightFootAngle += 15;
+        var currentRightFootRot = new Matrix4()
+          .setTranslate(-1.5, 1, -3)
+          .rotate(-rightFootAngle, 1, 0, 0)
+          .translate(1.5, -1, 3);
+        rightFootMatrix.setTranslate(0, -4, 2).multiply(currentRightFootRot);
+        break;
+      case 'M':
+        rightFootAngle -= 15;
+        var currentRightFootRot = new Matrix4()
+          .setTranslate(-1.5, 1, -3)
+          .rotate(-rightFootAngle, 1, 0, 0)
+          .translate(1.5, -1, 3);
+        rightFootMatrix.setTranslate(0, -4, 2).multiply(currentRightFootRot);
+        break;      
      default:
        return;
    }
