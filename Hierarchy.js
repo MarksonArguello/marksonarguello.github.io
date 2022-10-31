@@ -188,6 +188,13 @@
  }
  
  // A few global variables...
+
+ /**
+ * A simpleRotator object to enable rotation by mouse dragging.
+ * Provides the view transform that is applied to both skybox and teapot.
+ * @type {SimpleRotator}
+ */
+var rotator;
  
  /**
   * The OpenGL context.
@@ -233,13 +240,13 @@
  /**  @type {Matrix4} */
  var headMatrix = new Matrix4().setTranslate(0, 7, 0);
  /** @type {Matrix4} */
- var leftThighMatrix = new Matrix4().setTranslate(2, -9, 0);
+ var leftThighMatrix = new Matrix4().setTranslate(2, -8, 0);
 /** @type {Matrix4} */
 var leftShinMatrix = new Matrix4().setTranslate(0, -6, 0);
 /** @type {Matrix4} */
 var leftFootMatrix = new Matrix4().setTranslate(0, -4, 2);
 /** @type {Matrix4} */
-var rightThighMatrix = new Matrix4().setTranslate(-2, -9, 0);
+var rightThighMatrix = new Matrix4().setTranslate(-2, -8, 0);
 /** @type {Matrix4} */
 var rightShinMatrix = new Matrix4().setTranslate(0, -6, 0);
 /** @type {Matrix4} */
@@ -282,9 +289,9 @@ var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
   */
  // prettier-ignore
  var view = new Matrix4().setLookAt(
-     20, 20, 20,   // eye
-     0, 0, 0,      // at - looking at the origin
-     0, 1, 0); // up vector - y axis
+  20, 20, 20,   // eye
+  0, 0, 0,      // at - looking at the origin
+  0, 1, 0);
  
  /**
   * <p>Projection matrix.</p>
@@ -421,18 +428,18 @@ var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
       case "p":
         leftThighAngle += 15;
         var currentLeftThighRot = new Matrix4()
-          .setTranslate(-1, 4.5, 0)
+          .setTranslate(-1, 4, 0)
           .rotate(-leftThighAngle, 1, 0, 0)
-          .translate(1, -4.5,0);
-        leftThighMatrix.setTranslate(2, -9, 0).multiply(currentLeftThighRot);
+          .translate(1, -4,0);
+        leftThighMatrix.setTranslate(2, -8, 0).multiply(currentLeftThighRot);
         break;
       case "P":
         leftThighAngle -= 15;
         var currentLeftThighRot = new Matrix4()
-          .setTranslate(-1, 4.5, 0)
+          .setTranslate(-1, 4, 0)
           .rotate(-leftThighAngle, 1, 0, 0)
-          .translate(1, -4.5,0);
-        leftThighMatrix.setTranslate(2, -9, 0).multiply(currentLeftThighRot);
+          .translate(1, -4,0);
+        leftThighMatrix.setTranslate(2, -8, 0).multiply(currentLeftThighRot);
         break;
       case "i":
         leftShinAngle += 15;
@@ -469,10 +476,10 @@ var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
       case 'b':
         rightThighAngle += 15;
         var currentRightThighRot = new Matrix4()
-          .setTranslate(-1, 4.5, 0)
+          .setTranslate(-1, 4, 0)
           .rotate(-rightThighAngle, 1, 0, 0)
-          .translate(1, -4.5,0);
-        rightThighMatrix.setTranslate(-2, -9, 0).multiply(currentRightThighRot);
+          .translate(1, -4,0);
+        rightThighMatrix.setTranslate(-2, -8, 0).multiply(currentRightThighRot);
         break;
       case 'B':
         rightThighAngle -= 15;
@@ -586,6 +593,8 @@ var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
  
  /** Code to actually render our geometry. */
  function draw() {
+  view.elements = rotator.getViewMatrix();
+
    // clear the framebuffer
    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BIT);
  
@@ -695,7 +704,10 @@ var rightFootMatrixLocal = new Matrix4().setScale(3, 2, 6);
      console.log("Failed to get the rendering context for WebGL");
      return;
    }
- 
+   
+   rotator = new SimpleRotator(canvas);
+   rotator.setViewDistance(40);
+
    // load and compile the shader pair, using utility from the teal book
    var vshaderSource = document.getElementById(
      "vertexLightingShader"
